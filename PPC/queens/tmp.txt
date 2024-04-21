@@ -1,0 +1,37 @@
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++) {
+                IntegerExpressionVariable diag1 = constant(0);
+                IntegerExpressionVariable diag2 = constant(0);
+                // diagonale 1  '/'
+                int k = i + 1;
+                int l = j + 1;
+                while (k < n & l < n) {
+                    diag1 = plus(diag1, lignes[k][l]);
+                    k++;
+                    l++;
+                }
+                k = i - 1;
+                l = j - 1;
+                while (k >= 0 & l >= 0) {
+                    diag1 = plus(diag1, lignes[k][l]);
+                    k--;
+                    l--;
+                }
+                m.addConstraint(leq(diag1, 1));
+                // diagonale 2  '\'
+                k = i - 1;
+                l = j + 1;
+                while (k >= 0 & l < n) {
+                    diag2 = plus(diag2, lignes[k][l]);
+                    k--;
+                    l++;
+                }
+                k = i + 1;
+                l = j - 1;
+                while (k < n & l >= 0) {
+                    diag2 = plus(diag2, lignes[k][l]);
+                    k++;
+                    l--;
+                }
+                m.addConstraint(leq(diag2, 1));
+            }
